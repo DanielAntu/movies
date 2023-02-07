@@ -12,7 +12,7 @@
 <body>
     <header>
         <h2>MovieNote</h2>
-        <button>Adicionar Filme</button>
+        <button class="open-modal">Adicionar Filme</button>
     </header>
 
     <main class="container">
@@ -27,6 +27,35 @@
             </div>
         </div> -->
     </main>
+
+    <section class="modal-create-input hide">
+        <div class="input-create-input">
+            <button class="out"><i class="bi bi-x-lg"></i></button>
+            <h2>Cadastre um filme e de sua nota</h2>
+            <form method="post" class="create-input">
+                <div class="input-control">
+                    <label for="moviename">Filme:</label>
+                    <input type="text" name="moviename" id="moviename" placeholder="Digite o nome filme" required>
+                </div>
+
+                <div class="input-control">
+                    <label for="nota">Nota:</label>
+                    <input type="text" name="nota" id="nota" placeholder="Digite a nota do filme" required>
+                </div>
+
+                <div class="input-control">
+                    <label for="img">Imagem:</label>
+                    <input type="text" name="img" id="img" placeholder="Digite a url da imagem" required>
+                </div>
+
+                <button class="save" type="submit"><i class="bi bi-file-check"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <section class="modal-edit-input hide">
+        
+    </section>
 
     <footer>
         <p>Criado por Daniel Antunes</p>
