@@ -7,6 +7,11 @@ const moviename = document.querySelector('#moviename')
 const nota = document.querySelector('#nota')
 const img = document.querySelector('#img')
 const out = document.querySelector('.out')
+const modal_edit = document.querySelector('.modal-edit-input')
+const edit_input = document.querySelector('.edit-input')
+const moviename_edit = document.querySelector('#moviename-edit')
+const nota_edit = document.querySelector('#nota-edit')
+const img_edit = document.querySelector('#img-edit')
 
 // funções
 
@@ -34,6 +39,24 @@ const createCard = (movies) => {
     button_actions.classList.add('button-actions')
     const editButton = document.createElement('button')
     editButton.innerHTML = '<i class="bi bi-pencil"></i>'
+    // evento editar
+    editButton.addEventListener('click', () => {
+        moviename_edit.value = moviename
+        nota_edit.value = nota
+        img_edit.value = img
+
+        // evento do formulario de editar
+        edit_input.addEventListener('submit', (e) => {
+            e.preventDefault()
+
+            editMovie({id, moviename: moviename_edit.value, nota: nota_edit.value, img: img_edit.value})
+        })
+
+        modal_edit.classList.remove('hide')
+        modal_create.classList.add('hide')
+
+    })
+
     button_actions.appendChild(editButton)
     const deleteButton = document.createElement('button')
     deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>'
@@ -71,6 +94,7 @@ const addMovie = async (e) => {
     })
 
     modal_create.classList.add('hide')
+    modal_edit.classList.add('hide')
 
     showContainer()
 
@@ -87,9 +111,25 @@ const deleteMovie = async (id) => {
     showContainer()
 }
 
+const editMovie = async ({id, moviename, nota, img}) => {
+    await fetch(`http://localhost:3333/movies/${id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({moviename, nota, img})
+    })
+
+    modal_edit.classList.add('hide')
+    modal_create.classList.add('hide')
+    showContainer()
+    moviename_edit.value = ''
+    nota_edit.value = ''
+    img_edit.value = ''
+}
+
 // eventos
 open_modal.addEventListener('click', () => {
     modal_create.classList.remove('hide')
+    modal_edit.classList.add('hide')
 })
 
 create_input.addEventListener('submit', addMovie)
